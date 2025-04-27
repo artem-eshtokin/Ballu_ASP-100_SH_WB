@@ -1,0 +1,12 @@
+# Python на минималках
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Копируем скрипт и сертификаты из Mosquitto
+COPY config/mqtt_scripts/mqtt_heater_control.py /app/mqtt_heater_control.py
+COPY config/mosquitto/certs /app/certs
+
+RUN pip install --no-cache-dir paho-mqtt
+
+CMD ["python", "/app/mqtt_heater_control.py"]

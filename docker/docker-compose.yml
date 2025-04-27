@@ -1,0 +1,48 @@
+# docker-compose.yml
+
+version: '3.3'
+services:
+
+  # mosquitto for ballu
+  mosquitto-tls-legacy:
+    container_name: mosquitto-tls-legacy
+    image: eclipse-mosquitto:1.5.11
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - ./config/mosquitto/config:/mosquitto/config
+      - ./config/mosquitto/data:/mosquitto/data
+      - ./config/mosquitto/certs:/mosquitto/certs
+    environment:
+      - TZ=Europe/Moscow
+    network_mode: host
+    logging:
+      driver: none
+
+  # mqtt heater control script
+  mqtt-heater-control:
+    container_name: mqtt-heater-control
+    build:
+      context: .
+      dockerfile: Dockerfile.mqtt_heater_control
+    restart: unless-stopped
+    volumes:
+      - ./config/mosquitto/certs:/app/certs
+      - ./config/mqtt_scripts:/app
+    environment:
+      - TZ=Europe/Moscow
+    network_mode: host
+
+  # mqtt mode meta checker
+  mqtt-mode-meta-checker:
+    container_name: mqtt-mode-meta-checker
+    build:
+      context: .
+      dockerfile: Dockerfile.mqtt_mode_meta_checker
+    restart: unless-stopped
+    volumes:
+      - ./config/mosquitto/certs:/app/certs
+      - ./config/mqtt_scripts:/app
+    environment:
+      - TZ=Europe/Moscow
+    network_mode: host

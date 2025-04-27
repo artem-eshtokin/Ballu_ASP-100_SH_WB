@@ -1,0 +1,92 @@
+[
+{
+    "name": "Бризер",
+    "manufacturer": "Ballu",
+    "model": "ASP-100",
+    "modelId": "/devices/(ballu_asp-100_[0-9]{1,3})/controls/mode/meta/type",
+    "version" : "1.3",
+    "services": [
+      {
+        "type": "Fan",
+        "name": "Бризер",
+        "characteristics": [
+          {
+            "type": "Active",
+            "link": {
+              "type": "Integer",
+              "topicGet": "/devices/(1)/controls/mode",
+              "topicSet": "/devices/(1)/controls/mode/set_mode"
+            }
+          },
+          {
+            "type": "CurrentFanState",
+            "link": {
+              "type": "Integer",
+              "topicGet": "/devices/(1)/controls/mode",
+              "map": {
+                "0": "0",
+                "2": "1"
+              }
+            },
+            "validValues": "0,2"
+          },
+          {
+            "type": "RotationSpeed",
+            "unit": "",
+            "link": {
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/speed",
+              "topicSet": "/devices/(1)/controls/speed/set_speed"
+            },
+            "minValue": 0,
+            "maxValue": 7
+          },
+		  {
+			  "type": "TargetFanState",
+			  "validValues": "1"
+		  }
+        ]
+      },
+      {
+        "type": "Thermostat",
+        "name": "Подогрев",
+        "characteristics": [
+          {
+            "type": "CurrentHeatingCoolingState",
+            "link": {
+                "type": "Integer",
+                "topicGet": "/devices/(1)/controls/current_heater"
+            },
+            "validValues": "0,1"
+          },
+          {
+            "type": "TargetHeatingCoolingState",
+            "validValues": "1"
+          },
+          {
+            "type": "CurrentTemperature",
+            "link": {
+                "type": "Integer",
+                "topicGet": "/devices/(1)/controls/current_temperature"
+            }
+          },
+          {
+            "type": "TargetTemperature",
+            "link": {
+                "type": "Integer",
+                "topicGet": "/devices/(1)/controls/target_temperature",
+                "topicSet": "/devices/(1)/controls/target_temperature/set_target_temperature"
+            },
+            "minValue": 5,
+            "maxValue": 25,
+            "minStep": 1
+          },
+		  {
+			  "type": "TemperatureDisplayUnits",
+			  "validValues": "0"
+		  }
+        ]
+      }
+    ]
+  }
+]
