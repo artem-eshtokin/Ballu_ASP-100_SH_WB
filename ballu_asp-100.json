@@ -32,19 +32,15 @@
           },
           {
             "type": "RotationSpeed",
-            "unit": "",
+			"unit": "",
             "link": {
-              "type": "Double",
+              "type": "Integer",
               "topicGet": "/devices/(1)/controls/speed",
               "topicSet": "/devices/(1)/controls/speed/set_speed"
             },
             "minValue": 0,
             "maxValue": 7
-          },
-		  {
-			  "type": "TargetFanState",
-			  "validValues": "1"
-		  }
+          }
         ]
       },
       {
